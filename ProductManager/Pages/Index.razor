@@ -113,7 +113,7 @@
 
     private async Task RefreshProducts()
     {
-        Products = await service.GetProductAsync();
+        Products = await service.GetProductsAsync();
     }
 
     public Product NewProduct { get; set; } = new Product();
