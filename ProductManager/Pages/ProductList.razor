@@ -1,0 +1,43 @@
+﻿@page "/products"
+
+@inject ProductService service
+
+<table class="table table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th>Product Id</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Description</th>
+            <th>Delete Product</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Products.Any())
+        {
+            @foreach (var product in Products)
+            {
+                <tr @onclick="(() => SetProductForUpdate.InvokeAsync(product))">
+                    <td>@product.Id</td>
+                    <td>@product.Name</td>
+                    <td>@product.Price</td>
+                    <td>@product.Quantity</td>
+                    <td>@product.Description</td>
+                    <td><button class="btn btn-danger" @onclick="(() => DeleteProduct.InvokeAsync(product))">Delete</button></td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr><td colspan="6"><strong>No products available</strong></td></tr>
+        }
+    </tbody>
+</table>
+
+@code {
+
+    [Parameter] public EventCallback<Product> SetProductForUpdate { get; set; }
+    [Parameter] public EventCallback<Product> DeleteProduct { get; set; }
+    [Parameter] public List<Product> Products { get; set; }
+}
