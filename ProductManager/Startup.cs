@@ -29,7 +29,6 @@ namespace ProductManager
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<WeatherForecastService>();
 
             services.AddDbContext<ProductDbContext>(options =>
             {
