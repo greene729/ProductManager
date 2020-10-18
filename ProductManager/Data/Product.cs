@@ -1,5 +1,4 @@
-﻿using System;
-namespace ProductManager.Data
+﻿namespace ProductManager.Data
 {
     public class Product
     {

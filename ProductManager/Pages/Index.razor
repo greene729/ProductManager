@@ -1,55 +1,6 @@
 ﻿@page "/"
 
-@inject ProductService service
-
-<div class="container">
-
-    <div class="row bg-light">
-        <ProductList SetProductForUpdate="@SetProductForUpdate" DeleteProduct="@DeleteProduct" Products="@Products" />
-    </div>
-
-    <div class="row m-5">
-        <ProductForm Product="@NewProduct" Title="Add New Product" ButtonAction="@AddNewProduct" ButtonText="Add New Product" />
-        <ProductForm Product="@UpdateProduct" Title="Update Product" ButtonAction="@UpdateProductData" ButtonText="Update Product" />
-    </div>
-</div>
+<h3>Welcome to Product Manager</h3>
 
 @code {
-
-    List<Product> Products = new List<Product>();
-    protected override async Task OnInitializedAsync()
-    {
-        await RefreshProducts();
-    }
-
-    private async Task RefreshProducts()
-    {
-        Products = await service.GetProductsAsync();
-    }
-
-    public Product NewProduct { get; set; } = new Product();
-    private async Task AddNewProduct()
-    {
-        await service.AddProductAsync(NewProduct);
-        NewProduct = new Product();
-        await RefreshProducts();
-    }
-
-    Product UpdateProduct = new Product();
-    private void SetProductForUpdate(Product product)
-    {
-        UpdateProduct = product;
-    }
-
-    private async Task UpdateProductData()
-    {
-        await service.UpdateProductAsync(UpdateProduct);
-        await RefreshProducts();
-    }
-
-    async Task DeleteProduct(Product product)
-    {
-        await service.DeleteProductAsync(product);
-        await RefreshProducts();
-    }
 }
