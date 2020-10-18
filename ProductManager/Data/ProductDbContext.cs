@@ -11,16 +11,23 @@ namespace ProductManager.Data
         }
 
         public DbSet<Product> Products { get; set; }
+        public DbSet<Material> Materials { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Product>().HasData(GetProducts());
+            modelBuilder.Entity<Material>().HasData(GetMaterials());
             base.OnModelCreating(modelBuilder);
         }
 
         private List<Product> GetProducts()
         {
             return new List<Product>();
+        }
+
+        private List<Material> GetMaterials()
+        {
+            return new List<Material>();
         }
     }
 }

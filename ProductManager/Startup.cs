@@ -35,6 +35,7 @@ namespace ProductManager
                 options.UseSqlite("Data Source = Products.db");
             });
             services.AddScoped<ProductService>();
+            services.AddScoped<MaterialService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

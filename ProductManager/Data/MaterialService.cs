@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,42 +6,42 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ProductManager.Data
 {
-    public class ProductService
+    public class MaterialService
     {
         private readonly ProductDbContext _dbContext;
 
-        public ProductService(ProductDbContext dbContext)
+        public MaterialService(ProductDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public async Task<List<Product>> GetProductsAsync()
+        public async Task<List<Material>> GetMaterialsAsync()
         {
-            return await _dbContext.Products.ToListAsync();
+            return await _dbContext.Materials.ToListAsync();
         }
-
-        public async Task<Product> AddProductAsync(Product product)
+        
+        public async Task<Material> AddMaterialAsync(Material material)
         {
             try
             {
-                _dbContext.Products.Add(product);
+                _dbContext.Materials.Add(material);
                 await _dbContext.SaveChangesAsync();
             }
             catch (Exception)
             {
                 throw;
             }
-            return product;
+            return material;
         }
-
-        public async Task<Product> UpdateProductAsync(Product product)
+        
+        public async Task<Material> UpdateMaterialAsync(Material material)
         {
             try
             {
-                var productToUpdate = _dbContext.Products.FirstOrDefault(p => p.Id == product.Id);
-                if (productToUpdate != null)
+                var materialToUpdate = _dbContext.Materials.FirstOrDefault(p => p.Id == material.Id);
+                if (materialToUpdate != null)
                 {
-                    _dbContext.Products.Update(product);
+                    _dbContext.Materials.Update(material);
                     await _dbContext.SaveChangesAsync();
                 }
             }
@@ -49,14 +49,14 @@ namespace ProductManager.Data
             {
                 throw;
             }
-            return product;
+            return material;
         }
 
-        public async Task DeleteProductAsync(Product product)
+        public async Task DeleteMaterialAsync(Material material)
         {
             try
             {
-                _dbContext.Products.Remove(product);
+                _dbContext.Materials.Remove(material);
                 await _dbContext.SaveChangesAsync();
             }
             catch (Exception)
