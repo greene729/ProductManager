@@ -1,0 +1,44 @@
+<table class="table table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Cost</th>
+            <th>Supplier</th>
+            <th>Delete Material</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Materials.Any())
+        {
+            @foreach (var material in Materials)
+            {
+                <tr @onclick="(() => SetMaterialForUpdate.InvokeAsync(material))">
+                    <td>@material.Name</td>
+                    <td>@material.Quantity @material.Units</td>
+                    <td>@material.Cost</td>
+                    <td>
+                        
+                        <a>@material.Supplier
+                            @if (!string.IsNullOrEmpty(@material.SupplierItemNumber))
+                            {
+                                <span>- @material.SupplierItemNumber</span>
+                            }
+                        </a>
+                    </td>
+                    <td><button class="btn btn-danger" @onclick="(() => DeleteMaterial.InvokeAsync(material))">Delete</button></td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr><td colspan="6"><strong>No materials available</strong></td></tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    [Parameter] public EventCallback<Material> SetMaterialForUpdate { get; set; }
+    [Parameter] public EventCallback<Material> DeleteMaterial { get; set; }
+    [Parameter] public List<Material> Materials { get; set; }
+}

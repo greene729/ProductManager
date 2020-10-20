@@ -1,0 +1,56 @@
+<div class="col-5 bg-light m-2 justify-content-start">
+    <div class="p-3 mb-3 bg-primary text-white text-center">@Title</div>
+
+    <EditForm Model="@Material">
+        <div class="form-group">
+            <label for="name">Material Name</label>
+            <input type="text" id="name" class="form-control" @bind-value="@Material.Name" />
+        </div>
+
+        <div class="form-group">
+            <label for="quantity">Quantity</label>
+            <input type="text" id="quantity" class="form-control" @bind="@Material.Quantity" />
+        </div>
+
+        <div class="form-group">
+            <label for="units">Units</label>
+            <input type="text" id="units" class="form-control" @bind="@Material.Units" />
+        </div>
+
+        <div class="form-group">
+            <label for="cost">Cost</label>
+            <input type="text" id="cost" class="form-control" @bind="@Material.Cost" />
+        </div>
+
+        <div class="form-group">
+            <label for="supplier">Supplier</label>
+            <input type="text" id="supplier" class="form-control" @bind="@Material.Supplier" />
+        </div>
+
+        <div class="form-group">
+            <label for="orderablequantity">Orderable Quantity</label>
+            <input type="text" id="orderablequantity" class="form-control" @bind="@Material.OrderableQuantity" />
+        </div>
+
+        <div class="form-group">
+            <label for="supplieritemnumber">Supplier Item Number</label>
+            <input type="text" id="supplieritemnumber" class="form-control" @bind="@Material.SupplierItemNumber" />
+        </div>
+
+        <div class="form-group">
+            <label for="reorderlink">Reorder Link</label>
+            <input type="text" id="reorderlink" class="form-control" @bind="@Material.ReorderLink" />
+        </div>
+
+        <div class="text-center p-3 mb-3">
+            <button class="btn btn-info" @onclick="(() => ButtonAction.InvokeAsync(Material))">@ButtonText</button>
+        </div>
+    </EditForm>
+</div>
+
+@code {
+    [Parameter] public Material Material { get; set; }
+    [Parameter] public string Title { get; set; }
+    [Parameter] public EventCallback<Material> ButtonAction { get; set; }
+    [Parameter] public string ButtonText { get; set; }
+}

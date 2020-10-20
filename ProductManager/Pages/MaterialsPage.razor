@@ -1,0 +1,54 @@
+@page "/Materials"
+
+@inject MaterialService service
+
+<h3>Materials</h3>
+<div class="container">
+    <div class="row bg-light">
+        <MaterialList SetMaterialForUpdate="SetMaterialForUpdate" DeleteMaterial="DeleteMaterial" Materials="@Materials" />
+    </div>
+
+    <div class="row m-5">
+        <MaterialForm Material="@NewMaterial" Title="Add New Material" ButtonAction="AddNewMaterial" ButtonText="Add New Material" />
+        <MaterialForm Material="@UpdateMaterial" Title="Update Material" ButtonAction="UpdateMaterialData" ButtonText="Update Material" />
+    </div>
+</div>
+
+@code {
+    List<Material> Materials = new List<Material>();
+    protected override async Task OnInitializedAsync()
+    {
+        await RefreshMaterials();
+    }
+
+    private async Task RefreshMaterials()
+    {
+        Materials = await service.GetMaterialsAsync();
+    }
+
+    public Material NewMaterial { get; set; } = new Material();
+    private async Task AddNewMaterial()
+    {
+        await service.AddMaterialAsync(NewMaterial);
+        NewMaterial = new Material();
+        await RefreshMaterials();
+    }
+
+    Material UpdateMaterial = new Material();
+    private void SetMaterialForUpdate(Material material)
+    {
+        UpdateMaterial = material;
+    }
+
+    private async Task UpdateMaterialData()
+    {
+        await service.UpdateMaterialAsync(UpdateMaterial);
+        await RefreshMaterials();
+    }
+
+    async Task DeleteMaterial(Material material)
+    {
+        await service.DeleteMaterialAsync(material);
+        await RefreshMaterials();
+    }
+}
